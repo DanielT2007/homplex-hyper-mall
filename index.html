@@ -5,140 +5,211 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f36b21">
-<title>Homplex Hyper Mall</title>
+<title>HOMPLEX Hyper Mall — Магазин</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root {
   --orange:#f36b21;
-  --dark:#22251f;
-  --bg:#f6f6f3;
-  --muted:#777b76;
+  --orange-dark:#db5714;
+  --ink:#252525;
+  --muted:#777;
+  --bg:#f6f6f6;
+  --line:#ececec;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--dark);
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
-button,input{font:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);
+font-family:Arial,Helvetica,sans-serif}
+button,input,textarea{font:inherit}
 button{cursor:pointer}
-header{position:sticky;top:0;z-index:5;background:#fff;
-padding:16px;border-bottom:1px solid #eee}
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.logo{font-size:21px;font-weight:900;letter-spacing:-1px}
-.logo span{color:var(--orange)}
-.cart-btn{background:var(--dark);color:#fff;border:0;
-padding:12px 14px;border-radius:13px}
-.search{width:100%;margin-top:15px;padding:14px;
-border:1px solid #e8e8e4;border-radius:13px;background:#f8f8f6;
-outline-color:var(--orange)}
-main{max-width:1000px;margin:auto;padding:17px}
-.hero{background:var(--dark);color:#fff;border-radius:22px;
-padding:27px 23px;position:relative;overflow:hidden}
-.eyebrow{font-size:11px;letter-spacing:2px;color:#ffb58c;font-weight:800}
-.hero h1{font-size:clamp(27px,6vw,39px);line-height:1.1;
-max-width:360px;margin:15px 0}
-.hero p{color:#d2d4cf;font-size:14px}
-.primary{background:var(--orange);color:white;border:0;
-border-radius:11px;padding:13px 17px;font-weight:750}
-h2{font-size:20px;margin:25px 0 14px}
-.categories{display:flex;gap:9px;overflow-x:auto;padding-bottom:5px}
-.cat{white-space:nowrap;background:white;border:1px solid #e8e8e4;
-border-radius:25px;padding:10px 15px}
-.cat.active{background:var(--dark);color:white}
-.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.product{background:white;border-radius:17px;padding:10px;min-width:0}
-.photo{width:100%;height:135px;border-radius:12px;background:#f1f0ec;
-display:grid;place-items:center;overflow:hidden;font-size:48px}
-.photo img{width:100%;height:100%;object-fit:cover}
-.tag{font-size:10px;color:var(--orange);font-weight:800;margin-top:12px}
-.name{font-size:14px;font-weight:700;margin:7px 0;min-height:35px;overflow-wrap:anywhere}
-.description{font-size:12px;color:var(--muted);margin:5px 0}
-.price{font-size:17px;font-weight:850;margin-top:9px}
-.stock{font-size:11px;color:var(--muted);margin-top:5px}
-.add{width:100%;background:var(--orange);color:white;border:0;
-border-radius:10px;padding:12px 5px;margin-top:12px;font-weight:750}
-.add:disabled{opacity:.45;cursor:not-allowed}
-.status{padding:18px;background:#fff;border-radius:13px;
-color:var(--muted);font-size:14px;line-height:1.5}
-.note{font-size:12px;line-height:1.6;color:var(--muted)}
-footer{text-align:center;padding:28px 16px;color:var(--muted);font-size:12px}
-.overlay{display:none;position:fixed;inset:0;background:#0008;z-index:10}
-.panel{position:absolute;right:0;top:0;width:min(420px,100%);
-height:100%;overflow-y:auto;background:white;padding:20px}
-.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.close{border:0;background:#eee;border-radius:10px;padding:10px}
-.cart-row{padding:14px 0;border-bottom:1px solid #eee}
-.cart-controls{display:flex;align-items:center;gap:12px;margin-top:10px}
-.cart-controls button{border:0;border-radius:8px;padding:7px 12px;background:#eee}
-.total{font-size:21px;font-weight:850;margin:20px 0}
-.empty{padding:20px;text-align:center;color:var(--muted)}
-@media(min-width:600px){.products{grid-template-columns:repeat(3,minmax(0,1fr))}.photo{height:165px}}
-@media(min-width:850px){.products{grid-template-columns:repeat(4,minmax(0,1fr))}}
+header{background:white;border-bottom:1px solid var(--line)}
+.top{max-width:1200px;margin:auto;padding:17px 22px;
+display:flex;align-items:center;gap:22px}
+.logo{font-size:23px;font-weight:900;letter-spacing:-1px;
+color:var(--orange);white-space:nowrap}
+.logo small{display:block;font-size:10px;letter-spacing:3px;
+color:#555;margin-top:2px}
+.search{flex:1;display:flex;background:#f4f4f4;
+border:1px solid #eee;border-radius:10px;overflow:hidden}
+.search input{width:100%;min-width:0;border:0;outline:0;
+padding:13px;background:transparent}
+.search button{border:0;background:var(--orange);color:white;
+padding:0 17px}
+.cart-btn,.primary{border:0;background:var(--orange);
+color:white;border-radius:9px;padding:12px 16px;font-weight:700}
+.cart-btn:hover,.primary:hover{background:var(--orange-dark)}
+main{max-width:1200px;margin:25px auto;padding:0 22px}
+.hero{background:linear-gradient(110deg,#fff0e6,#fff 70%);
+border-radius:18px;padding:36px;display:flex;align-items:center;
+justify-content:space-between;gap:20px;min-height:215px;
+border:1px solid #f5e4d9}
+.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.08;
+margin:0 0 12px;max-width:560px;letter-spacing:-1.5px}
+.hero h1 span{color:var(--orange)}
+.hero p{color:#686868;line-height:1.6;max-width:460px}
+.hero-art{font-size:78px;flex-shrink:0}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:2px;
+color:var(--orange);margin-bottom:12px}
+.section-head{display:flex;align-items:center;justify-content:space-between;
+gap:12px;margin:30px 0 16px}
+h2{font-size:24px;margin:0;letter-spacing:-.5px}
+#status{font-size:13px;color:var(--muted);margin:16px 0}
+.categories{display:flex;gap:9px;overflow-x:auto;padding:2px 0 12px}
+.cat{white-space:nowrap;background:white;border:1px solid #e8e8e8;
+border-radius:30px;padding:10px 16px;color:#555}
+.cat.active{background:var(--orange);border-color:var(--orange);color:white}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.product{background:white;border:1px solid var(--line);border-radius:13px;
+padding:13px;min-width:0;transition:transform .18s,box-shadow .18s}
+.product:hover{transform:translateY(-3px);
+box-shadow:0 9px 24px #0000000b}
+.photo{height:165px;background:#f7f7f7;border-radius:9px;
+display:flex;align-items:center;justify-content:center;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:contain}
+.no-photo{font-size:48px}
+.p-name{font-size:15px;font-weight:700;line-height:1.4;
+margin:13px 0 6px;overflow-wrap:anywhere}
+.p-desc{font-size:12px;color:var(--muted);line-height:1.5;
+min-height:18px}
+.price{font-size:19px;font-weight:800;margin:13px 0}
+.stock{font-size:12px;color:#388653;margin-bottom:10px}
+.stock.out{color:#c44}
+.add{width:100%;border:0;border-radius:8px;background:#fff0e6;
+color:var(--orange-dark);font-weight:700;padding:11px}
+.add:disabled{background:#eee;color:#999;cursor:not-allowed}
+.empty{grid-column:1/-1;background:white;border-radius:12px;
+padding:30px;text-align:center;color:var(--muted)}
+#cartPanel{margin-top:35px;background:white;border:1px solid var(--line);
+border-radius:14px;padding:22px}
+.cart-row{display:flex;align-items:center;gap:12px;
+padding:13px 0;border-bottom:1px solid var(--line)}
+.cart-row .item-info{flex:1;min-width:0}
+.item-info strong{display:block;overflow-wrap:anywhere}
+.item-info small{color:var(--muted)}
+.qty{display:flex;align-items:center;gap:10px}
+.qty button{width:30px;height:30px;border:1px solid var(--line);
+background:white;border-radius:7px}
+.remove{border:0;background:transparent;color:#b44;font-size:12px}
+.total{font-size:21px;font-weight:800;text-align:right;margin:20px 0}
+#checkoutForm{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#checkoutForm input,#checkoutForm textarea{width:100%;padding:13px;
+border:1px solid #ddd;border-radius:8px;outline-color:var(--orange)}
+#checkoutForm textarea{grid-column:1/-1;resize:vertical;min-height:75px}
+#checkoutForm button{grid-column:1/-1}
+#orderMessage{font-size:14px;line-height:1.5;margin-top:12px}
+footer{margin-top:40px;background:#242424;color:#ddd;padding:25px 20px;
+text-align:center;font-size:13px;line-height:1.8}
+footer strong{color:#ff8a4c}
+@media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.hero-art{font-size:60px}}
+@media(max-width:620px){
+ .top{padding:13px;gap:10px;flex-wrap:wrap}
+ .logo{font-size:20px}
+ .search{order:3;flex-basis:100%}
+ .cart-btn{margin-left:auto;padding:11px}
+ main{padding:0 13px;margin-top:14px}
+ .hero{padding:24px 19px;min-height:0}
+ .hero h1{font-size:29px}
+ .hero-art{font-size:43px}
+ .hero p{font-size:14px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .photo{height:135px}
+ .product{padding:9px}
+ .p-name{font-size:14px}
+ .price{font-size:17px}
+ #cartPanel{padding:15px}
+ #checkoutForm{grid-template-columns:1fr}
+ #checkoutForm textarea,#checkoutForm button{grid-column:auto}
+ .qty{gap:5px}
+}
 </style>
 </head>
 <body>
 <header>
   <div class="top">
-    <div class="logo">HOMPLEX<span>.</span></div>
-    <button class="cart-btn" id="openCart">Корзина · <b id="count">0</b></button>
+    <div class="logo">HOMPLEX<small>HYPER MALL</small></div>
+    <div class="search">
+      <input id="search" type="search" placeholder="Что вы ищете?">
+      <button id="searchBtn" aria-label="Поиск">⌕</button>
+    </div>
+    <button class="cart-btn" id="cartButton">Корзина · <span id="cartCount">0</span></button>
   </div>
-  <input class="search" id="search" type="search" placeholder="Поиск товаров...">
 </header>
 
 <main>
   <section class="hero">
-    <div class="eyebrow">HOMPLEX HYPER MALL</div>
-    <h1>Всё для дома. В одном месте.</h1>
-    <p>Открывай товары для своего пространства.</p>
-    <button class="primary" id="browse">Смотреть каталог →</button>
+    <div>
+      <div class="eyebrow">HOMPLEX HYPER MALL</div>
+      <h1>Всё для дома.<br><span>В одном месте.</span></h1>
+      <p>Откройте каталог товаров для дома, ремонта и повседневной жизни.</p>
+      <button class="primary" id="catalogButton">Смотреть каталог →</button>
+    </div>
+    <div class="hero-art" aria-hidden="true">🏠</div>
   </section>
 
-  <h2>Категории</h2>
-  <div class="categories" id="categories"></div>
+  <div id="status">Подключаем каталог…</div>
 
-  <h2 id="catalog">Каталог товаров</h2>
-  <div id="status" class="status">Подключаем каталог...</div>
-  <div class="products" id="products"></div>
-  <p class="note">Демонстрационный проект. Данные каталога должны быть подтверждены Homplex перед запуском продаж.</p>
+  <section id="catalog">
+    <div class="section-head">
+      <h2>Популярные товары</h2>
+    </div>
+    <div class="categories" id="categories"></div>
+    <div class="grid" id="products"></div>
+  </section>
+
+  <section id="cartPanel">
+    <div class="section-head" style="margin-top:0">
+      <h2>Ваша корзина</h2>
+    </div>
+    <div id="cartItems">Корзина пока пуста.</div>
+    <div class="total">Итого: <span id="cartTotal">0 ֏</span></div>
+
+    <h2 style="font-size:19px;margin-bottom:15px">Оформление заказа</h2>
+    <form id="checkoutForm">
+      <input name="customer_name" placeholder="Ваше имя" minlength="2"
+        maxlength="100" required autocomplete="name">
+      <input name="customer_phone" type="tel" placeholder="Номер телефона"
+        minlength="5" maxlength="30" required autocomplete="tel">
+      <textarea name="delivery_address" placeholder="Адрес доставки"
+        minlength="5" maxlength="300" required autocomplete="street-address"></textarea>
+      <button class="primary" id="submitOrder" type="submit">
+        Оформить заказ
+      </button>
+    </form>
+    <div id="orderMessage" role="status"></div>
+  </section>
 </main>
 
-<footer>HOMPLEX HYPER MALL · MOBILE SHOPPING</footer>
-
-<div class="overlay" id="overlay">
-  <section class="panel">
-    <div class="panel-head">
-      <h2>Твоя корзина</h2>
-      <button class="close" id="closeCart">Закрыть ✕</button>
-    </div>
-    <div id="cartItems"></div>
-    <div class="total" id="total">Итого: 0 ֏</div>
-    <button class="primary" id="checkout" style="width:100%">Продолжить</button>
-    <p class="note">Реальное оформление заказа подключим после настройки безопасного серверного API и согласования с Homplex.</p>
-  </section>
-</div>
+<footer>
+  <strong>HOMPLEX HYPER MALL</strong><br>
+  Демонстрационный проект интернет-магазина.<br>
+  Оформление реальных заказов доступно после проверки и одобрения проекта.
+</footer>
 
 <script>
-"use strict";
-
-// Вставь значения своего проекта Supabase в эти две строки.
+/* ВСТАВЬ СВОИ ПРЕЖНИЕ ЗНАЧЕНИЯ ИЗ СТАРОГО index.html */
 const SUPABASE_URL = https://xdqxhorzpxblponkdnli.supabase.co
 const SUPABASE_KEY = sb_publishable_bn0e4nmYe38iNejT1_k_6A_68H2xJY1
 
-let products = [];
-let selectedCategory = "Все";
-const cart = {};
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: true
+  }
+});
 
+const money = n => new Intl.NumberFormat("ru-RU").format(n) + " ֏";
 const $ = id => document.getElementById(id);
 
-function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, ch => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",
-    '"':"&quot;","'":"&#39;"
-  })[ch]);
+let allProducts = [];
+let activeCategory = "Все";
+let cart = new Map();
+
+function setStatus(message) {
+  $("status").textContent = message;
 }
 
-function money(value) {
-  return Number(value || 0).toLocaleString("ru-RU") + " ֏";
-}
-
-function safeImageURL(value) {
+function safeImageUrl(value) {
   try {
     const url = new URL(value);
     return url.protocol === "https:" ? url.href : "";
@@ -147,223 +218,290 @@ function safeImageURL(value) {
   }
 }
 
-async function loadProducts() {
-  $("status").hidden = false;
-  $("status").textContent = "Загружаем товары из базы данных...";
-  $("products").innerHTML = "";
-
-  if (
-    SUPABASE_URL.startsWith("PASTE_") ||
-    SUPABASE_KEY.startsWith("PASTE_")
-  ) {
-    $("status").textContent =
-      "Сначала укажи Project URL и Publishable key в коде.";
-    return;
-  }
-
-  try {
-    const endpoint =
-      SUPABASE_URL.replace(/\/+$/, "") +
-      "/rest/v1/products?select=id,name,category,description,price_amd,image_url,stock&active=eq.true&order=id.asc";
-
-    const response = await fetch(endpoint, {
-      headers: { apikey: SUPABASE_KEY }
-    });
-
-    if (!response.ok) {
-      throw new Error("Ошибка загрузки: HTTP " + response.status);
-    }
-
-    const data = await response.json();
-
-    products = data.map(p => ({
-      id: p.id,
-      name: p.name,
-      cat: p.category,
-      description: p.description || "",
-      price: Number(p.price_amd),
-      image: safeImageURL(p.image_url),
-      stock: Number(p.stock || 0),
-      emoji: p.category === "Освещение" ? "💡" :
-             p.category === "Мебель" ? "🪑" :
-             p.category === "Сантехника" ? "🚿" : "🔧"
-    }));
-
-    renderCategories();
-    renderProducts();
-    updateCartCount();
-
-    $("status").hidden = data.length > 0;
-    if (!data.length) {
-      $("status").textContent =
-        "В базе пока нет активных товаров. Добавь товары в Supabase.";
-      $("status").hidden = false;
-    }
-  } catch (error) {
-    console.error(error);
-    $("status").hidden = false;
-    $("status").textContent =
-      "Не удалось загрузить каталог. Проверь URL, ключ и политику доступа к таблице products.";
-  }
-}
-
 function renderCategories() {
-  const categories = ["Все", ...new Set(products.map(p => p.cat))];
+  const categories = ["Все", ...new Set(
+    allProducts.map(p => p.category).filter(Boolean)
+  )];
+  const root = $("categories");
+  root.replaceChildren();
 
-  $("categories").innerHTML = categories.map(cat =>
-    `<button class="cat ${selectedCategory === cat ? "active" : ""}"
-      data-category="${escapeHTML(cat)}">${escapeHTML(cat)}</button>`
-  ).join("");
+  categories.forEach(category => {
+    const button = document.createElement("button");
+    button.className = "cat" + (activeCategory === category ? " active" : "");
+    button.textContent = category;
+    button.onclick = () => {
+      activeCategory = category;
+      renderCategories();
+      renderProducts();
+    };
+    root.append(button);
+  });
 }
 
 function renderProducts() {
-  const query = $("search").value.trim().toLowerCase();
+  const root = $("products");
+  root.replaceChildren();
 
-  const filtered = products.filter(p =>
-    (selectedCategory === "Все" || p.cat === selectedCategory) &&
-    (p.name.toLowerCase().includes(query) ||
-     p.cat.toLowerCase().includes(query) ||
-     p.description.toLowerCase().includes(query))
-  );
+  const query = $("search").value.trim().toLocaleLowerCase("ru");
+  const visible = allProducts.filter(p => {
+    const matchesCategory = activeCategory === "Все" ||
+      p.category === activeCategory;
+    const text = [p.name, p.category, p.description || ""]
+      .join(" ").toLocaleLowerCase("ru");
+    return matchesCategory && text.includes(query);
+  });
 
-  $("products").innerHTML = filtered.map(p => {
-    const photo = p.image
-      ? `<img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}" loading="lazy">`
-      : `<span aria-hidden="true">${p.emoji}</span>`;
-
-    return `
-      <article class="product">
-        <div class="photo">${photo}</div>
-        <div class="tag">${escapeHTML(p.cat.toUpperCase())}</div>
-        <div class="name">${escapeHTML(p.name)}</div>
-        ${p.description ? `<div class="description">${escapeHTML(p.description)}</div>` : ""}
-        <div class="price">${money(p.price)}</div>
-        <div class="stock">${p.stock > 0 ? "В наличии" : "Нет в наличии"}</div>
-        <button class="add" data-add="${p.id}" ${p.stock <= 0 ? "disabled" : ""}>
-          + В корзину
-        </button>
-      </article>`;
-  }).join("");
-
-  if (!filtered.length) {
-    $("products").innerHTML =
-      '<div class="status">Товары не найдены.</div>';
+  if (!visible.length) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "Товары не найдены. Попробуйте изменить поиск.";
+    root.append(empty);
+    return;
   }
+
+  visible.forEach(p => {
+    const card = document.createElement("article");
+    card.className = "product";
+
+    const photo = document.createElement("div");
+    photo.className = "photo";
+    const url = safeImageUrl(p.image_url || "");
+    if (url) {
+      const img = document.createElement("img");
+      img.src = url;
+      img.alt = p.name;
+      img.loading = "lazy";
+      img.onerror = () => {
+        img.remove();
+        const icon = document.createElement("span");
+        icon.className = "no-photo";
+        icon.textContent = "📦";
+        photo.append(icon);
+      };
+      photo.append(img);
+    } else {
+      const icon = document.createElement("span");
+      icon.className = "no-photo";
+      icon.textContent = "📦";
+      photo.append(icon);
+    }
+
+    const name = document.createElement("div");
+    name.className = "p-name";
+    name.textContent = p.name;
+
+    const description = document.createElement("div");
+    description.className = "p-desc";
+    description.textContent = p.description || p.category || "";
+
+    const price = document.createElement("div");
+    price.className = "price";
+    price.textContent = money(p.price_amd);
+
+    const stock = document.createElement("div");
+    stock.className = "stock" + (p.stock <= 0 ? " out" : "");
+    stock.textContent = p.stock > 0 ? "В наличии" : "Нет в наличии";
+
+    const add = document.createElement("button");
+    add.className = "add";
+    add.textContent = p.stock > 0 ? "＋ В корзину" : "Нет в наличии";
+    add.disabled = p.stock <= 0;
+    add.onclick = () => addToCart(p.id);
+
+    card.append(photo, name, description, price, stock, add);
+    root.append(card);
+  });
 }
 
 function addToCart(id) {
-  const p = products.find(item => String(item.id) === String(id));
-  if (!p || p.stock <= 0) return;
+  const product = allProducts.find(p => String(p.id) === String(id));
+  if (!product || product.stock <= 0) return;
 
-  const current = cart[id] || 0;
-  if (current >= p.stock) {
-    alert("Достигнуто доступное количество товара.");
+  const current = cart.get(String(id)) || 0;
+  if (current >= Math.min(product.stock, 20)) {
+    $("orderMessage").textContent = "Достигнуто максимальное количество.";
     return;
   }
-
-  cart[id] = current + 1;
-  updateCartCount();
+  cart.set(String(id), current + 1);
+  $("orderMessage").textContent = "";
+  renderCart();
 }
 
-function updateCartCount() {
-  $("count").textContent =
-    Object.values(cart).reduce((sum, n) => sum + n, 0);
+function changeQty(id, delta) {
+  const product = allProducts.find(p => String(p.id) === String(id));
+  if (!product) return;
+  const next = (cart.get(String(id)) || 0) + delta;
+
+  if (next <= 0) cart.delete(String(id));
+  else if (next <= Math.min(product.stock, 20)) cart.set(String(id), next);
+
+  renderCart();
 }
 
 function renderCart() {
-  const entries = Object.entries(cart)
-    .filter(([, quantity]) => quantity > 0);
+  const root = $("cartItems");
+  root.replaceChildren();
+  let count = 0;
+  let total = 0;
 
-  if (!entries.length) {
-    $("cartItems").innerHTML =
-      '<div class="empty">Корзина пока пустая 🛒</div>';
-  } else {
-    $("cartItems").innerHTML = entries.map(([id, quantity]) => {
-      const p = products.find(item => String(item.id) === id);
-      if (!p) return "";
-      return `
-        <div class="cart-row">
-          <b>${escapeHTML(p.name)}</b>
-          <div>${money(p.price)} × ${quantity}</div>
-          <div class="cart-controls">
-            <button data-change="-1" data-id="${id}">−</button>
-            <span>${quantity}</span>
-            <button data-change="1" data-id="${id}"
-              ${quantity >= p.stock ? "disabled" : ""}>+</button>
-          </div>
-        </div>`;
-    }).join("");
-  }
+  cart.forEach((qty, id) => {
+    const product = allProducts.find(p => String(p.id) === id);
+    if (!product) return;
 
-  const total = entries.reduce((sum, [id, quantity]) => {
-    const p = products.find(item => String(item.id) === id);
-    return sum + (p ? p.price * quantity : 0);
-  }, 0);
+    count += qty;
+    total += product.price_amd * qty;
 
-  $("total").textContent = "Итого: " + money(total);
+    const row = document.createElement("div");
+    row.className = "cart-row";
+
+    const info = document.createElement("div");
+    info.className = "item-info";
+    const name = document.createElement("strong");
+    name.textContent = product.name;
+    const detail = document.createElement("small");
+    detail.textContent = money(product.price_amd) + " за шт.";
+    info.append(name, detail);
+
+    const controls = document.createElement("div");
+    controls.className = "qty";
+
+    const minus = document.createElement("button");
+    minus.textContent = "−";
+    minus.setAttribute("aria-label", "Уменьшить количество");
+    minus.onclick = () => changeQty(id, -1);
+
+    const quantity = document.createElement("span");
+    quantity.textContent = qty;
+
+    const plus = document.createElement("button");
+    plus.textContent = "+";
+    plus.setAttribute("aria-label", "Увеличить количество");
+    plus.onclick = () => changeQty(id, 1);
+
+    const remove = document.createElement("button");
+    remove.className = "remove";
+    remove.textContent = "Убрать";
+    remove.onclick = () => {
+      cart.delete(id);
+      renderCart();
+    };
+
+    controls.append(minus, quantity, plus);
+    row.append(info, controls, remove);
+    root.append(row);
+  });
+
+  if (count === 0) root.textContent = "Корзина пока пуста.";
+  $("cartCount").textContent = count;
+  $("cartTotal").textContent = money(total);
+  $("submitOrder").disabled = count === 0;
 }
 
-function changeQuantity(id, delta) {
-  const p = products.find(item => String(item.id) === String(id));
-  if (!p) return;
+async function loadProducts() {
+  setStatus("Загружаем товары…");
 
-  const next = (cart[id] || 0) + delta;
-  if (next <= 0) delete cart[id];
-  else if (next <= p.stock) cart[id] = next;
+  const { data, error } = await db
+    .from("products")
+    .select("id,name,category,description,price_amd,image_url,stock")
+    .eq("active", true)
+    .order("id", { ascending: true });
 
-  updateCartCount();
-  renderCart();
-}
-
-$("categories").addEventListener("click", event => {
-  const button = event.target.closest("[data-category]");
-  if (!button) return;
-  selectedCategory = button.dataset.category;
-  renderCategories();
-  renderProducts();
-});
-
-$("products").addEventListener("click", event => {
-  const button = event.target.closest("[data-add]");
-  if (!button) return;
-  addToCart(button.dataset.add);
-});
-
-$("cartItems").addEventListener("click", event => {
-  const button = event.target.closest("[data-change]");
-  if (!button) return;
-  changeQuantity(button.dataset.id, Number(button.dataset.change));
-});
-
-$("search").addEventListener("input", renderProducts);
-
-$("openCart").addEventListener("click", () => {
-  renderCart();
-  $("overlay").style.display = "block";
-});
-
-$("closeCart").addEventListener("click", () => {
-  $("overlay").style.display = "none";
-});
-
-$("overlay").addEventListener("click", event => {
-  if (event.target === $("overlay")) {
-    $("overlay").style.display = "none";
-  }
-});
-
-$("browse").addEventListener("click", () => {
-  $("catalog").scrollIntoView({ behavior: "smooth" });
-});
-
-$("checkout").addEventListener("click", () => {
-  if (!Object.values(cart).some(n => n > 0)) {
-    alert("Сначала добавь товар в корзину.");
+  if (error) {
+    setStatus("Не удалось загрузить каталог. Проверь Supabase URL и ключ.");
+    console.error("Product loading error:", error);
     return;
   }
-  alert("Корзина готова. Оформление реального заказа подключим через безопасный сервер.");
+
+  allProducts = data || [];
+  const validIds = new Set(allProducts.map(p => String(p.id)));
+  for (const id of cart.keys()) {
+    if (!validIds.has(id)) cart.delete(id);
+  }
+
+  setStatus("Товаров в каталоге: " + allProducts.length);
+  renderCategories();
+  renderProducts();
+  renderCart();
+}
+
+$("search").addEventListener("input", renderProducts);
+$("searchBtn").addEventListener("click", renderProducts);
+$("catalogButton").addEventListener("click", () => {
+  $("catalog").scrollIntoView({ behavior: "smooth" });
+});
+$("cartButton").addEventListener("click", () => {
+  $("cartPanel").scrollIntoView({ behavior: "smooth" });
 });
 
+$("checkoutForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (cart.size === 0) {
+    $("orderMessage").textContent = "Сначала добавь товары в корзину.";
+    return;
+  }
+
+  const form = event.currentTarget;
+  const fields = new FormData(form);
+  const payload = {
+    customer_name: String(fields.get("customer_name") || "").trim(),
+    customer_phone: String(fields.get("customer_phone") || "").trim(),
+    delivery_address: String(fields.get("delivery_address") || "").trim(),
+    items: Array.from(cart, ([id, quantity]) => ({
+      id: Number(id),
+      quantity
+    }))
+  };
+
+  const submit = $("submitOrder");
+  submit.disabled = true;
+  submit.textContent = "Отправляем заказ…";
+  $("orderMessage").textContent = "";
+
+  try {
+    let { data: sessionData, error: sessionError } =
+      await db.auth.getSession();
+
+    if (sessionError) throw sessionError;
+
+    if (!sessionData.session) {
+      const { error } = await db.auth.signInAnonymously();
+      if (error) {
+        throw new Error(
+          "Не удалось начать сессию. Проверь Anonymous Sign-Ins в Supabase."
+        );
+      }
+    }
+
+    const { data, error } = await db.functions.invoke("create-order", {
+      body: payload
+    });
+
+    if (error) throw error;
+    if (!data || data.success !== true || !data.order) {
+      throw new Error("Сервер не подтвердил заказ. Попробуй ещё раз.");
+    }
+
+    const order = data.order;
+    $("orderMessage").textContent =
+      "Заказ №" + order.order_id + " принят! Сумма: " +
+      money(order.total_amd) + ". Статус: ожидает подтверждения.";
+
+    cart.clear();
+    form.reset();
+    await loadProducts();
+  } catch (error) {
+    console.error("Checkout error:", error);
+    $("orderMessage").textContent =
+      error.message ||
+      "Не удалось отправить заказ. Проверь подключение и настройки Supabase.";
+  } finally {
+    submit.disabled = cart.size === 0;
+    submit.textContent = "Оформить заказ";
+  }
+});
+
+renderCart();
 loadProducts();
 </script>
 </body>
