@@ -8,313 +8,363 @@
 <title>Homplex Hyper Mall</title>
 <style>
 :root {
-  --orange: #f36b21;
-  --ink: #20221f;
-  --muted: #777b76;
-  --bg: #f6f6f3;
+  --orange:#f36b21;
+  --dark:#22251f;
+  --bg:#f6f6f3;
+  --muted:#777b76;
 }
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-}
-button, input { font: inherit; }
-button { cursor: pointer; }
-header {
-  background: white;
-  padding: 18px 18px 14px;
-  position: sticky;
-  top: 0;
-  z-index: 5;
-  border-bottom: 1px solid #eee;
-}
-.top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-.logo { font-size: 21px; font-weight: 900; letter-spacing: -1px; }
-.logo span { color: var(--orange); }
-.cart {
-  background: var(--ink);
-  color: white;
-  border: 0;
-  border-radius: 13px;
-  padding: 11px 14px;
-}
-.search {
-  width: 100%;
-  margin-top: 16px;
-  padding: 14px;
-  border: 1px solid #e9e9e6;
-  border-radius: 13px;
-  background: #f8f8f6;
-  outline-color: var(--orange);
-}
-main { padding: 18px; max-width: 900px; margin: auto; }
-.hero {
-  padding: 25px 22px;
-  border-radius: 22px;
-  background: #262a25;
-  color: white;
-  overflow: hidden;
-  position: relative;
-}
-.hero:after {
-  content: "⌂";
-  position: absolute;
-  right: 12px;
-  bottom: -40px;
-  font-size: 150px;
-  color: #ffffff12;
-}
-.eyebrow {
-  color: #ffb58c;
-  font-size: 11px;
-  letter-spacing: 2px;
-  font-weight: 800;
-}
-.hero h1 {
-  font-size: 29px;
-  line-height: 1.13;
-  max-width: 250px;
-  margin: 13px 0;
-}
-.hero p { color: #d4d5d0; font-size: 13px; }
-.hero button {
-  background: var(--orange);
-  color: white;
-  border: 0;
-  border-radius: 11px;
-  padding: 12px 16px;
-  margin-top: 8px;
-  font-weight: 700;
-}
-h2 { font-size: 19px; margin: 25px 0 14px; }
-.categories {
-  display: flex;
-  gap: 9px;
-  overflow-x: auto;
-  padding-bottom: 5px;
-}
-.cat {
-  white-space: nowrap;
-  border: 1px solid #e8e8e3;
-  background: white;
-  border-radius: 30px;
-  padding: 10px 14px;
-}
-.cat.active { background: var(--ink); color: white; }
-.products {
-  display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
-  gap: 12px;
-}
-.product {
-  background: white;
-  border-radius: 17px;
-  padding: 10px;
-  min-width: 0;
-}
-.photo {
-  height: 125px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  font-size: 55px;
-  background: #f2f1ed;
-}
-.tag { color: var(--orange); font-size: 10px; font-weight: 800; margin-top: 12px; }
-.name { font-size: 14px; font-weight: 700; margin: 7px 0; min-height: 34px; }
-.price { font-size: 17px; font-weight: 800; }
-.add {
-  margin-top: 11px;
-  width: 100%;
-  border: 0;
-  border-radius: 10px;
-  padding: 11px 5px;
-  color: white;
-  background: var(--orange);
-  font-weight: 700;
-}
-.note { font-size: 12px; color: var(--muted); line-height: 1.5; }
-footer {
-  text-align: center;
-  padding: 25px 18px 35px;
-  color: var(--muted);
-  font-size: 12px;
-}
-.overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 10;
-  background: #0008;
-}
-.panel {
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  width: min(390px,100%);
-  overflow-y: auto;
-  background: white;
-  padding: 22px;
-}
-.paneltop { display:flex; justify-content:space-between; align-items:center; }
-.close { border:0; background:#eee; border-radius:10px; padding:10px; }
-.cartrow { padding: 15px 0; border-bottom:1px solid #eee; }
-.cartrow button { margin-left:8px; }
-.checkout {
-  width:100%; padding:14px; border:0; border-radius:12px;
-  background:var(--orange); color:white; font-weight:800;
-}
-@media(min-width:600px) {
-  .products { grid-template-columns: repeat(3,minmax(0,1fr)); }
-  .photo { height:155px; }
-}
-@media(min-width:800px) {
-  .products { grid-template-columns: repeat(4,minmax(0,1fr)); }
-}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--dark);
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+button,input{font:inherit}
+button{cursor:pointer}
+header{position:sticky;top:0;z-index:5;background:#fff;
+padding:16px;border-bottom:1px solid #eee}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-size:21px;font-weight:900;letter-spacing:-1px}
+.logo span{color:var(--orange)}
+.cart-btn{background:var(--dark);color:#fff;border:0;
+padding:12px 14px;border-radius:13px}
+.search{width:100%;margin-top:15px;padding:14px;
+border:1px solid #e8e8e4;border-radius:13px;background:#f8f8f6;
+outline-color:var(--orange)}
+main{max-width:1000px;margin:auto;padding:17px}
+.hero{background:var(--dark);color:#fff;border-radius:22px;
+padding:27px 23px;position:relative;overflow:hidden}
+.eyebrow{font-size:11px;letter-spacing:2px;color:#ffb58c;font-weight:800}
+.hero h1{font-size:clamp(27px,6vw,39px);line-height:1.1;
+max-width:360px;margin:15px 0}
+.hero p{color:#d2d4cf;font-size:14px}
+.primary{background:var(--orange);color:white;border:0;
+border-radius:11px;padding:13px 17px;font-weight:750}
+h2{font-size:20px;margin:25px 0 14px}
+.categories{display:flex;gap:9px;overflow-x:auto;padding-bottom:5px}
+.cat{white-space:nowrap;background:white;border:1px solid #e8e8e4;
+border-radius:25px;padding:10px 15px}
+.cat.active{background:var(--dark);color:white}
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.product{background:white;border-radius:17px;padding:10px;min-width:0}
+.photo{width:100%;height:135px;border-radius:12px;background:#f1f0ec;
+display:grid;place-items:center;overflow:hidden;font-size:48px}
+.photo img{width:100%;height:100%;object-fit:cover}
+.tag{font-size:10px;color:var(--orange);font-weight:800;margin-top:12px}
+.name{font-size:14px;font-weight:700;margin:7px 0;min-height:35px;overflow-wrap:anywhere}
+.description{font-size:12px;color:var(--muted);margin:5px 0}
+.price{font-size:17px;font-weight:850;margin-top:9px}
+.stock{font-size:11px;color:var(--muted);margin-top:5px}
+.add{width:100%;background:var(--orange);color:white;border:0;
+border-radius:10px;padding:12px 5px;margin-top:12px;font-weight:750}
+.add:disabled{opacity:.45;cursor:not-allowed}
+.status{padding:18px;background:#fff;border-radius:13px;
+color:var(--muted);font-size:14px;line-height:1.5}
+.note{font-size:12px;line-height:1.6;color:var(--muted)}
+footer{text-align:center;padding:28px 16px;color:var(--muted);font-size:12px}
+.overlay{display:none;position:fixed;inset:0;background:#0008;z-index:10}
+.panel{position:absolute;right:0;top:0;width:min(420px,100%);
+height:100%;overflow-y:auto;background:white;padding:20px}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.close{border:0;background:#eee;border-radius:10px;padding:10px}
+.cart-row{padding:14px 0;border-bottom:1px solid #eee}
+.cart-controls{display:flex;align-items:center;gap:12px;margin-top:10px}
+.cart-controls button{border:0;border-radius:8px;padding:7px 12px;background:#eee}
+.total{font-size:21px;font-weight:850;margin:20px 0}
+.empty{padding:20px;text-align:center;color:var(--muted)}
+@media(min-width:600px){.products{grid-template-columns:repeat(3,minmax(0,1fr))}.photo{height:165px}}
+@media(min-width:850px){.products{grid-template-columns:repeat(4,minmax(0,1fr))}}
 </style>
 </head>
 <body>
 <header>
   <div class="top">
     <div class="logo">HOMPLEX<span>.</span></div>
-    <button class="cart" onclick="openCart()">Корзина · <b id="count">0</b></button>
+    <button class="cart-btn" id="openCart">Корзина · <b id="count">0</b></button>
   </div>
-  <input class="search" id="search" placeholder="Поиск товаров..." oninput="render()">
+  <input class="search" id="search" type="search" placeholder="Поиск товаров...">
 </header>
 
 <main>
   <section class="hero">
     <div class="eyebrow">HOMPLEX HYPER MALL</div>
     <h1>Всё для дома. В одном месте.</h1>
-    <p>Находи товары для своего пространства.</p>
-    <button onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">
-      Смотреть каталог →
-    </button>
+    <p>Открывай товары для своего пространства.</p>
+    <button class="primary" id="browse">Смотреть каталог →</button>
   </section>
 
   <h2>Категории</h2>
   <div class="categories" id="categories"></div>
 
-  <h2 id="catalog">Популярные товары</h2>
+  <h2 id="catalog">Каталог товаров</h2>
+  <div id="status" class="status">Подключаем каталог...</div>
   <div class="products" id="products"></div>
-  <p class="note">Демонстрационная версия. Товары и цены не являются реальными предложениями Homplex.</p>
+  <p class="note">Демонстрационный проект. Данные каталога должны быть подтверждены Homplex перед запуском продаж.</p>
 </main>
 
-<footer>HOMPLEX HYPER MALL<br>Концепт мобильного магазина</footer>
+<footer>HOMPLEX HYPER MALL · MOBILE SHOPPING</footer>
 
-<div class="overlay" id="overlay" onclick="if(event.target===this)closeCart()">
-  <div class="panel">
-    <div class="paneltop">
+<div class="overlay" id="overlay">
+  <section class="panel">
+    <div class="panel-head">
       <h2>Твоя корзина</h2>
-      <button class="close" onclick="closeCart()">Закрыть ✕</button>
+      <button class="close" id="closeCart">Закрыть ✕</button>
     </div>
-    <div id="cartitems"></div>
-    <h3 id="total">Итого: 0 ֏</h3>
-    <button class="checkout" onclick="checkout()">Перейти к оформлению</button>
-    <p class="note">Оформление реальных заказов подключим после настройки серверной части и согласования с Homplex.</p>
-  </div>
+    <div id="cartItems"></div>
+    <div class="total" id="total">Итого: 0 ֏</div>
+    <button class="primary" id="checkout" style="width:100%">Продолжить</button>
+    <p class="note">Реальное оформление заказа подключим после настройки безопасного серверного API и согласования с Homplex.</p>
+  </section>
 </div>
 
 <script>
-const products = [
- {id:1,name:"Аккумуляторная дрель",cat:"Инструменты",price:45000,emoji:"🔧"},
- {id:2,name:"Настольная лампа",cat:"Освещение",price:12000,emoji:"💡"},
- {id:3,name:"Стул для дома",cat:"Мебель",price:28000,emoji:"🪑"},
- {id:4,name:"Набор инструментов",cat:"Инструменты",price:18500,emoji:"🧰"},
- {id:5,name:"Потолочный светильник",cat:"Освещение",price:22000,emoji:"🏮"},
- {id:6,name:"Полка настенная",cat:"Мебель",price:9500,emoji:"🪵"}
-];
-let category = "Все";
-let cart = {};
+"use strict";
 
-const money = n => n.toLocaleString("ru-RU") + " ֏";
+// Вставь значения своего проекта Supabase в эти две строки.
+const SUPABASE_URL = https://xdqxhorzpxblponkdnli.supabase.co
+const SUPABASE_KEY = sb_publishable_bn0e4nmYe38iNejT1_k_6A_68H2xJY1
+
+let products = [];
+let selectedCategory = "Все";
+const cart = {};
+
+const $ = id => document.getElementById(id);
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",
+    '"':"&quot;","'":"&#39;"
+  })[ch]);
+}
+
+function money(value) {
+  return Number(value || 0).toLocaleString("ru-RU") + " ֏";
+}
+
+function safeImageURL(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" ? url.href : "";
+  } catch {
+    return "";
+  }
+}
+
+async function loadProducts() {
+  $("status").hidden = false;
+  $("status").textContent = "Загружаем товары из базы данных...";
+  $("products").innerHTML = "";
+
+  if (
+    SUPABASE_URL.startsWith("PASTE_") ||
+    SUPABASE_KEY.startsWith("PASTE_")
+  ) {
+    $("status").textContent =
+      "Сначала укажи Project URL и Publishable key в коде.";
+    return;
+  }
+
+  try {
+    const endpoint =
+      SUPABASE_URL.replace(/\/+$/, "") +
+      "/rest/v1/products?select=id,name,category,description,price_amd,image_url,stock&active=eq.true&order=id.asc";
+
+    const response = await fetch(endpoint, {
+      headers: { apikey: SUPABASE_KEY }
+    });
+
+    if (!response.ok) {
+      throw new Error("Ошибка загрузки: HTTP " + response.status);
+    }
+
+    const data = await response.json();
+
+    products = data.map(p => ({
+      id: p.id,
+      name: p.name,
+      cat: p.category,
+      description: p.description || "",
+      price: Number(p.price_amd),
+      image: safeImageURL(p.image_url),
+      stock: Number(p.stock || 0),
+      emoji: p.category === "Освещение" ? "💡" :
+             p.category === "Мебель" ? "🪑" :
+             p.category === "Сантехника" ? "🚿" : "🔧"
+    }));
+
+    renderCategories();
+    renderProducts();
+    updateCartCount();
+
+    $("status").hidden = data.length > 0;
+    if (!data.length) {
+      $("status").textContent =
+        "В базе пока нет активных товаров. Добавь товары в Supabase.";
+      $("status").hidden = false;
+    }
+  } catch (error) {
+    console.error(error);
+    $("status").hidden = false;
+    $("status").textContent =
+      "Не удалось загрузить каталог. Проверь URL, ключ и политику доступа к таблице products.";
+  }
+}
 
 function renderCategories() {
- const cats = ["Все", ...new Set(products.map(p=>p.cat))];
- document.getElementById("categories").innerHTML = cats.map(c =>
-  `<button class="cat ${category===c?'active':''}" onclick="setCategory('${c}')">${c}</button>`
- ).join("");
+  const categories = ["Все", ...new Set(products.map(p => p.cat))];
+
+  $("categories").innerHTML = categories.map(cat =>
+    `<button class="cat ${selectedCategory === cat ? "active" : ""}"
+      data-category="${escapeHTML(cat)}">${escapeHTML(cat)}</button>`
+  ).join("");
 }
 
-function setCategory(c) {
- category = c;
- renderCategories();
- render();
+function renderProducts() {
+  const query = $("search").value.trim().toLowerCase();
+
+  const filtered = products.filter(p =>
+    (selectedCategory === "Все" || p.cat === selectedCategory) &&
+    (p.name.toLowerCase().includes(query) ||
+     p.cat.toLowerCase().includes(query) ||
+     p.description.toLowerCase().includes(query))
+  );
+
+  $("products").innerHTML = filtered.map(p => {
+    const photo = p.image
+      ? `<img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}" loading="lazy">`
+      : `<span aria-hidden="true">${p.emoji}</span>`;
+
+    return `
+      <article class="product">
+        <div class="photo">${photo}</div>
+        <div class="tag">${escapeHTML(p.cat.toUpperCase())}</div>
+        <div class="name">${escapeHTML(p.name)}</div>
+        ${p.description ? `<div class="description">${escapeHTML(p.description)}</div>` : ""}
+        <div class="price">${money(p.price)}</div>
+        <div class="stock">${p.stock > 0 ? "В наличии" : "Нет в наличии"}</div>
+        <button class="add" data-add="${p.id}" ${p.stock <= 0 ? "disabled" : ""}>
+          + В корзину
+        </button>
+      </article>`;
+  }).join("");
+
+  if (!filtered.length) {
+    $("products").innerHTML =
+      '<div class="status">Товары не найдены.</div>';
+  }
 }
 
-function render() {
- const q = document.getElementById("search").value.toLowerCase();
- const list = products.filter(p =>
-  (category==="Все" || p.cat===category) &&
-  p.name.toLowerCase().includes(q)
- );
- document.getElementById("products").innerHTML = list.map(p => `
-  <article class="product">
-   <div class="photo">${p.emoji}</div>
-   <div class="tag">${p.cat.toUpperCase()}</div>
-   <div class="name">${p.name}</div>
-   <div class="price">${money(p.price)}</div>
-   <button class="add" onclick="add(${p.id})">+ В корзину</button>
-  </article>
- `).join("") || "<p>Ничего не найдено.</p>";
+function addToCart(id) {
+  const p = products.find(item => String(item.id) === String(id));
+  if (!p || p.stock <= 0) return;
+
+  const current = cart[id] || 0;
+  if (current >= p.stock) {
+    alert("Достигнуто доступное количество товара.");
+    return;
+  }
+
+  cart[id] = current + 1;
+  updateCartCount();
 }
 
-function add(id) {
- cart[id] = (cart[id] || 0) + 1;
- updateCount();
-}
-
-function updateCount() {
- document.getElementById("count").textContent =
-  Object.values(cart).reduce((a,b)=>a+b,0);
-}
-
-function openCart() {
- document.getElementById("overlay").style.display="block";
- renderCart();
-}
-function closeCart() {
- document.getElementById("overlay").style.display="none";
+function updateCartCount() {
+  $("count").textContent =
+    Object.values(cart).reduce((sum, n) => sum + n, 0);
 }
 
 function renderCart() {
- const entries = Object.entries(cart).filter(([id,n])=>n>0);
- document.getElementById("cartitems").innerHTML = entries.map(([id,n])=>{
-  const p = products.find(x=>x.id===Number(id));
-  return `<div class="cartrow">
-   <b>${p.emoji} ${p.name}</b><br>
-   ${money(p.price)} × ${n}
-   <button onclick="change(${id},-1)">−</button>
-   <button onclick="change(${id},1)">+</button>
-  </div>`;
- }).join("") || "<p>Корзина пока пустая.</p>";
+  const entries = Object.entries(cart)
+    .filter(([, quantity]) => quantity > 0);
 
- const total = entries.reduce((sum,[id,n])=>
-  sum + products.find(p=>p.id===Number(id)).price*n,0);
- document.getElementById("total").textContent="Итого: "+money(total);
+  if (!entries.length) {
+    $("cartItems").innerHTML =
+      '<div class="empty">Корзина пока пустая 🛒</div>';
+  } else {
+    $("cartItems").innerHTML = entries.map(([id, quantity]) => {
+      const p = products.find(item => String(item.id) === id);
+      if (!p) return "";
+      return `
+        <div class="cart-row">
+          <b>${escapeHTML(p.name)}</b>
+          <div>${money(p.price)} × ${quantity}</div>
+          <div class="cart-controls">
+            <button data-change="-1" data-id="${id}">−</button>
+            <span>${quantity}</span>
+            <button data-change="1" data-id="${id}"
+              ${quantity >= p.stock ? "disabled" : ""}>+</button>
+          </div>
+        </div>`;
+    }).join("");
+  }
+
+  const total = entries.reduce((sum, [id, quantity]) => {
+    const p = products.find(item => String(item.id) === id);
+    return sum + (p ? p.price * quantity : 0);
+  }, 0);
+
+  $("total").textContent = "Итого: " + money(total);
 }
 
-function change(id,delta) {
- cart[id] = Math.max(0,(cart[id]||0)+delta);
- updateCount();
- renderCart();
+function changeQuantity(id, delta) {
+  const p = products.find(item => String(item.id) === String(id));
+  if (!p) return;
+
+  const next = (cart[id] || 0) + delta;
+  if (next <= 0) delete cart[id];
+  else if (next <= p.stock) cart[id] = next;
+
+  updateCartCount();
+  renderCart();
 }
 
-function checkout() {
- const count = Object.values(cart).reduce((a,b)=>a+b,0);
- alert(count ? "Корзина работает! Реальное оформление заказов подключим следующим этапом." : "Сначала добавь товар в корзину.");
-}
+$("categories").addEventListener("click", event => {
+  const button = event.target.closest("[data-category]");
+  if (!button) return;
+  selectedCategory = button.dataset.category;
+  renderCategories();
+  renderProducts();
+});
 
-renderCategories();
-render();
+$("products").addEventListener("click", event => {
+  const button = event.target.closest("[data-add]");
+  if (!button) return;
+  addToCart(button.dataset.add);
+});
+
+$("cartItems").addEventListener("click", event => {
+  const button = event.target.closest("[data-change]");
+  if (!button) return;
+  changeQuantity(button.dataset.id, Number(button.dataset.change));
+});
+
+$("search").addEventListener("input", renderProducts);
+
+$("openCart").addEventListener("click", () => {
+  renderCart();
+  $("overlay").style.display = "block";
+});
+
+$("closeCart").addEventListener("click", () => {
+  $("overlay").style.display = "none";
+});
+
+$("overlay").addEventListener("click", event => {
+  if (event.target === $("overlay")) {
+    $("overlay").style.display = "none";
+  }
+});
+
+$("browse").addEventListener("click", () => {
+  $("catalog").scrollIntoView({ behavior: "smooth" });
+});
+
+$("checkout").addEventListener("click", () => {
+  if (!Object.values(cart).some(n => n > 0)) {
+    alert("Сначала добавь товар в корзину.");
+    return;
+  }
+  alert("Корзина готова. Оформление реального заказа подключим через безопасный сервер.");
+});
+
+loadProducts();
 </script>
 </body>
 </html>
